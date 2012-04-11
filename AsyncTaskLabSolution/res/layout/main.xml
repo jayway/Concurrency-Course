@@ -5,49 +5,25 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:stretchColumns="*">
 	<TableRow>
-
-		<Button
-		    android:id="@+id/loadButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Load images" />
-		
-		<Button
-		    android:id="@+id/cancelButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Cancel" />
-
-    	<ProgressBar
+		<ProgressBar
     		android:id="@+id/progressbar"
-    		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-    		style="?android:attr/progressBarStyleHorizontal"
-			
-    	/>
+    		android:layout_span="2"
+    		style="?android:attr/progressBarStyleHorizontal" />
+	</TableRow>   
+	<TableRow>
+		<Button
+		    android:id="@+id/loadButton"		    
+		    android:text="Load images" />		
+		<Button
+		    android:id="@+id/cancelButton"		    
+		    android:text="Cancel" />   	
 	</TableRow>
 	<TableRow>
-		<ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-	    android:layout_height="wrap_content">
-    	</ImageView>
-    	<ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-	    android:layout_height="wrap_content">
-    	</ImageView>
+		<ImageView android:id="@+id/imageView1"/>   
+    	<ImageView android:id="@+id/imageView2"/>   
 	</TableRow>
 	<TableRow>
-	<ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-	    android:layout_height="wrap_content">
-    	</ImageView>
-    	<ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-	    android:layout_height="wrap_content">
-    	</ImageView>	
+		<ImageView android:id="@+id/imageView3"/>
+    	<ImageView android:id="@+id/imageView4"/>   	
 	</TableRow>
 </TableLayout>
