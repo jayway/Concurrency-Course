@@ -13,11 +13,11 @@ public class DataSourceLoader extends AsyncTaskLoader<List<String>> implements
 	public DataSourceLoader(Context context) {
 		super(context);
 		source = new DataSource(this);
-		source.start();
 	}
 
 	@Override
 	protected void onStartLoading() {
+		source.startSource();
 		forceLoad();
 	}
 
@@ -26,7 +26,6 @@ public class DataSourceLoader extends AsyncTaskLoader<List<String>> implements
 		onContentChanged();
 	}
 
-	
 	/**
 	 * This is the long running operation
 	 */
