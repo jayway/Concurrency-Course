@@ -62,20 +62,19 @@ public class AsyncTaskLabActivity extends Activity {
 		mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
 		mProgressBar.setMax(DOWNLOAD_URLS.length);
 
-		DataObject dataObject = (DataObject) getLastNonConfigurationInstance();
+		DownloadImagesTask downloadImagesTask = (DownloadImagesTask) getLastNonConfigurationInstance();
 
-		if (dataObject != null) {
-			mLoadImageTask = dataObject.task;
-			if (mLoadImageTask != null) {
-				mLoadImageTask.attach(this);
-				if (mLoadImageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
-					mLoadButton.setEnabled(false);
-				}
-				if (mLoadImageTask.isCancelled()) {
-					mLoadButton.setEnabled(true);
-				}
-				setImages(mLoadImageTask.getBitmaps());
+		if (downloadImagesTask != null) {
+			mLoadImageTask = downloadImagesTask;
+
+			mLoadImageTask.attach(this);
+			if (mLoadImageTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+				mLoadButton.setEnabled(false);
 			}
+			if (mLoadImageTask.isCancelled()) {
+				mLoadButton.setEnabled(true);
+			}
+			setImages(mLoadImageTask.getBitmaps());
 		}
 	}
 
@@ -175,16 +174,10 @@ public class AsyncTaskLabActivity extends Activity {
 	public Object onRetainNonConfigurationInstance() {
 		if (mLoadImageTask != null) {
 			mLoadImageTask.detach();
-			DataObject dataObject = new DataObject();
-			dataObject.task = mLoadImageTask;
-			return dataObject;
+			return mLoadImageTask;
 		} else {
 			return null;
 		}
-	}
-
-	static private class DataObject {
-		DownloadImagesTask task;
 	}
 
 }
