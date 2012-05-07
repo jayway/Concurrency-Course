@@ -1,4 +1,4 @@
-package com.sony;
+package com.sony.readwritelocklab;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,28 +7,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class LabSynchronized {
+public class LabUnsynchronized {
 
 	public static class SharedResource {
-
 		private int mCount = 0;
 
-		public synchronized void write() {
-
+		public void write() {
 			for (int i = 0; i < 1E5; i++) {
 				mCount++;
 			}
 			System.out.println(mCount);
-
 		}
 
-		public synchronized int read() {
-
-			for (int i = 0; i < mCount; i++) {
-				Math.sin(i);
-			}
+		public int read() {
 			return mCount;
-
 		}
 	}
 
@@ -63,6 +55,7 @@ public class LabSynchronized {
 	}
 
 	public static void main(String[] args) {
+
 		SharedResource data = new SharedResource();
 		ExecutorService executor = Executors.newCachedThreadPool();
 

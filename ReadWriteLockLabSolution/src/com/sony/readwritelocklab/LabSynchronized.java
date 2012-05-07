@@ -1,4 +1,4 @@
-package com.sony;
+package com.sony.readwritelocklab;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,38 +6,29 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class LabReentrantReadWriteLock {
+public class LabSynchronized {
 
 	public static class SharedResource {
-		private final ReadWriteLock mLock = new ReentrantReadWriteLock();
+
 		private int mCount = 0;
 
-		public void write() {
-			mLock.writeLock().lock();
-			try {
-				for (int i = 0; i < 1E5; i++) {
-					mCount++;
-				}
-				System.out.println(mCount);
-			} finally {
-				mLock.writeLock().unlock();
+		public synchronized void write() {
+
+			for (int i = 0; i < 1E5; i++) {
+				mCount++;
 			}
+			System.out.println(mCount);
+
 		}
 
-		public int read() {
-			mLock.readLock().lock();
+		public synchronized int read() {
 
-			try {
-				for (int i = 0; i < mCount; i++) {
-					Math.sin(i);
-				}
-				return mCount;
-			} finally {
-				mLock.readLock().unlock();
+			for (int i = 0; i < mCount; i++) {
+				Math.sin(i);
 			}
+			return mCount;
+
 		}
 	}
 
@@ -101,7 +92,5 @@ public class LabReentrantReadWriteLock {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
