@@ -1,4 +1,4 @@
-package com.sony;
+package com.sony.asynctasklab;
 
 import java.io.IOException;
 import java.io.InputStream;

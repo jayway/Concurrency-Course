@@ -1,4 +1,6 @@
-package com.sony;
+package com.sony.asynctasklab;
+
+import com.sony.asynctasklab.R;
 
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
