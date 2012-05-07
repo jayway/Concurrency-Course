@@ -1,4 +1,4 @@
-package com.sony;
+package com.sony.loaderlab;
 
 import java.util.List;
 
@@ -19,6 +19,11 @@ public class DataSourceLoader extends AsyncTaskLoader<List<String>> implements
 	protected void onStartLoading() {
 		source.startSource();
 		forceLoad();
+	}
+	
+	@Override
+	protected void onStopLoading() {
+		source.stopSource();
 	}
 
 	@Override
