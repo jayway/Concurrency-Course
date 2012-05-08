@@ -17,3 +17,6 @@ local.properties
 
 # OSX files
 .DS_Store
+
+# Included jars by Eclipse, e.g. compatibility package
+libs/
