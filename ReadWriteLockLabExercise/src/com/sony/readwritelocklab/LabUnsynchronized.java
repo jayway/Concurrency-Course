@@ -1,6 +1,11 @@
 package com.sony.readwritelocklab;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class LabUnsynchronized {
 
@@ -50,25 +55,42 @@ public class LabUnsynchronized {
 	}
 
 	public static void main(String[] args) {
-
+		
 		SharedResource data = new SharedResource();
-
-		// TODO:
+		
 		// Create an Executor that uses a cached thread pool.
+		ExecutorService executor = Executors.newCachedThreadPool();
+
 		// Instantiate 100 Readers and 10 Writers with the SharedResource and
 		// add them all to a Set.
+		Set<Callable<Void>> callables = new HashSet<Callable<Void>>();
+		for (int i = 0; i < 100; i++) {
+			callables.add(new Reader(data));
+		}
+		for (int i = 0; i < 10; i++) {
+			callables.add(new Writer(data));
+		}
 
-		long start = System.currentTimeMillis();
+		try {
+			long start = System.currentTimeMillis();
+			// Invoke all Readers and Writers in the Set
+			executor.invokeAll(callables);
+			System.out.println("execution time: "
+					+ (System.currentTimeMillis() - start));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-		// TODO:
-		// Invoke all Readers and Writers in the Set
 
-		System.out.println("execution time: "
-				+ (System.currentTimeMillis() - start));
-
-		// TODO:
 		// Shut down the executor.
+		executor.shutdown();
+
 		// Await termination of all Writers and Readers.
+		try {
+			executor.awaitTermination(1, TimeUnit.HOURS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 }
